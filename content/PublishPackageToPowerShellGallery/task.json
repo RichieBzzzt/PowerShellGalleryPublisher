@@ -1,11 +1,11 @@
 {
-    "id": "04198dfa-8f17-4b7a-86e2-d14ce101f9d4",
-    "name": "PSGalleryPackager",
-    "friendlyName": "PowerShell Gallery Packager",
-    "description": "Publish PowerShell module to PowerShell Gallery",
+    "id": "3a1392c3-fb05-48f1-8135-19d99f27ec5a",
+    "name": "PublishPackageToPowerShellGallery",
+    "friendlyName": "PowerShell Gallery Packager for Azure DevOps",
+    "description": "Azure DevOps plugin for publishing PowerShell module to PowerShell Gallery",
     "helpMarkDown": "[More Information](https://www.powershellgallery.com/)",
     "category": "Package",
-    "author": "Kenichiro Nakamura",
+    "author": "Richie Lee",
     "version": {
         "Major": 0,
         "Minor": 1,
@@ -16,7 +16,7 @@
     ],
     "minimumAgentVersion": "1.83.0",
     "groups": [],
-    "instanceNameFormat": "PowerShell Gallery Packager $(solution)",
+    "instanceNameFormat": "Azure DevOps PowerShell Gallery Packager $(solution)",
     "inputs": [
         {
             "name": "apiKey",
@@ -37,7 +37,7 @@
     ],
     "execution": {
         "PowerShell": {
-            "target": "$(currentDirectory)\\PSGalleryPublisher.ps1",
+            "target": "$(currentDirectory)\\PublishPackageToPowerShellGallery.ps1",
             "argumentFormat": "",
             "workingDirectory": ""
         }
