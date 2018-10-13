@@ -1,6 +1,6 @@
 {
     "manifestVersion": 1,
-    "version": "0.1.0",
+    "version": "0.12.0",
     "id": "PublishPackageToPowerShellGallery",
     "name": "Publish Package To PowerShell Gallery",
     "description": "Azure DevOps plugin for publishing PowerShell module to PowerShell Gallery",
@@ -37,10 +37,10 @@
     "contributionTypes": [],
      "files": [
             {
-                "path": "PublishPackageToPowerShellGallery/rotomdex.png", "addressable": true
+                "path": "PublishPackageToPowerShellGallery/icon.png", "addressable": true
             },
             {
-                "path": "PublishPackageToPowerShellGallery/PsAlterModuleVersion.ps1", "addressable": true
+                "path": "PublishPackageToPowerShellGallery/PublishPackageToPowerShellGallery.ps1", "addressable": true
             },
             {
                 "path": "PublishPackageToPowerShellGallery/task.json", "addressable": true

@@ -13,14 +13,21 @@ Function Publish-PackageToPowerShellGallery {
         [ValidateNotNullOrEmpty()]
         $path
     )
-    $NuGetFolderName = Join-Path $env:temp ([System.IO.Path]::GetRandomFileName())
-    New-Item -ItemType Directory -Force -Path $NuGetFolderName
+    
+    $nugetPath = "c:\nuget"
+    Write-Verbose $nugetPath -Verbose
 
-    $NuGetInstallUri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-    Write-Verbose "Working Folder : $NuGetFolderName" -Verbose
-    $NugetExe = "$NuGetFolderName\nuget.exe"
+    # --- C:\nuget exists on VS2017 build agents. To avoid task failure, check whether the directory exists and only create if it doesn't/
+    if (!(Test-Path -Path $nugetPath)) {
+        Write-Verbose "$nugetPath does not exist on this system. Creating directory." -Verbose
+        New-Item -Path $nugetPath -ItemType Directory
+    }`
+
+    Write-Verbose "Working Folder : $nugetPath"
+    $NugetExe = "$nugetPath\nuget.exe"
     if (-not (Test-Path $NugetExe)) {
         Write-Verbose "Cannot find nuget at path $NugetExe" -Verbose
+        $NuGetInstallUri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
         $sourceNugetExe = $NuGetInstallUri
         Write-Verbose "$sourceNugetExe -OutFile $NugetExe" -Verbose
         Invoke-WebRequest $sourceNugetExe -OutFile $NugetExe
@@ -32,17 +39,15 @@ Function Publish-PackageToPowerShellGallery {
         }
     }
 
-    Write-Verbose "Add $NuGetFolderName as %PATH%"
+    Write-Verbose "Add $nugetPath as %PATH%"
     $pathenv = [System.Environment]::GetEnvironmentVariable("path")
-    $pathenv = $pathenv + ";" + $NuGetFolderName
+    $pathenv = $pathenv + ";" + $nugetPath
     [System.Environment]::SetEnvironmentVariable("path", $pathenv)
 
-    Write-Verbose "Create NuGet package provider"
+    Write-Verbose "Create NuGet package provider" -Verbose
     Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
 
-    Write-Verbose "Publishing module"
-    Publish-Module -Path $path -NuGetApiKey $apiKey
-
-    Remove-Item $NuGetFolderName -Force
+    Write-Verbose "Publishing module" -Verbose
+    Publish-Module -Path $path -NuGetApiKey $apiKey -Force
 }
 Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
