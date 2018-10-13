@@ -1,0 +1,55 @@
+{
+    "manifestVersion": 1,
+    "version": "0.12.0",
+    "id": "PublishPackageToPowerShellGallery",
+    "name": "Publish Package To PowerShell Gallery",
+    "description": "Azure DevOps plugin for publishing PowerShell module to PowerShell Gallery",
+    "categories": [
+        "Build and release"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "publisher": "richiebzzzt",
+        "icons": {
+            "default": "images/rotomdex.png"
+         },
+    "content": {
+        "details": {
+            "path": "overview.md"
+        }
+    },
+    "contributions": [
+        {
+            "id": "Publish-Package-To-PowerShell-Gallery",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "PublishPackageToPowerShellGallery"
+            }
+        }
+    ],
+    "scopes": [],
+    "contributionTypes": [],
+     "files": [
+            {
+                "path": "PublishPackageToPowerShellGallery/icon.png", "addressable": true
+            },
+            {
+                "path": "PublishPackageToPowerShellGallery/PublishPackageToPowerShellGallery.ps1", "addressable": true
+            },
+            {
+                "path": "PublishPackageToPowerShellGallery/task.json", "addressable": true
+            },
+            {
+                "path": "images/rotomdex.png", "addressable": true
+            },
+            {
+                "path": "vss-extension.json", "addressable": true
+            }
+        ]
+}
