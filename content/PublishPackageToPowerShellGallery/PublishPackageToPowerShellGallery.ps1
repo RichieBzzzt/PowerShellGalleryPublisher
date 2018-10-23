@@ -1,8 +1,10 @@
 
 
 param(
-    [string] $apiKey,
-    [string] $path
+    [parameter(Mandatory = $true)] [string] $apiKey,
+    [parameter(Mandatory = $true)] [string] $path,
+    [parameter(Mandatory = $false)] [string] $psd1FileName,
+    [parameter(Mandatory = $false)] [string] $version
 )
 
 Function Publish-PackageToPowerShellGallery {
@@ -11,13 +13,16 @@ Function Publish-PackageToPowerShellGallery {
         [ValidateNotNullOrEmpty()]
         $apiKey,
         [ValidateNotNullOrEmpty()]
-        $path
+        $path,
+        $psd1FileName,
+        $version
     )
-    
+    $path = Resolve-Path $path
+    Write-Host $path
+
     $nugetPath = "c:\nuget"
     Write-Verbose $nugetPath -Verbose
 
-    # --- C:\nuget exists on VS2017 build agents. To avoid task failure, check whether the directory exists and only create if it doesn't/
     if (!(Test-Path -Path $nugetPath)) {
         Write-Verbose "$nugetPath does not exist on this system. Creating directory." -Verbose
         New-Item -Path $nugetPath -ItemType Directory
@@ -48,6 +53,20 @@ Function Publish-PackageToPowerShellGallery {
     Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
 
     Write-Verbose "Publishing module" -Verbose
+    
+    if ($PSBoundParameters.ContainsKey('version') -eq $true) {
+        $psd1File = Join-Path $path $psd1FileName
+        .\PublishPackageToPowerShellGallery\AlterModuleVersion.ps1 -buildNumber $version -file $psd1File
+    }
     Publish-Module -Path $path -NuGetApiKey $apiKey -Force
 }
-Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
+if ($PSBoundParameters.ContainsKey('version') -eq $false) {
+    Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
+}
+else {
+    if ($PSBoundParameters.ContainsKey('psd1FileName') -eq $false) {
+        Write-Error "psd1FileName not included!"
+        Throw
+    }
+    Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path -version $version -psd1FileName $psd1FileName
+}

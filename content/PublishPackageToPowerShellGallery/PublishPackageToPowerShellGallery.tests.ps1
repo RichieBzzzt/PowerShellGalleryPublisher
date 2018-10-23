@@ -1,1 +1,0 @@
-.\PublishPackageToPowerShellGallery\PublishPackageToPowerShellGallery.ps1
