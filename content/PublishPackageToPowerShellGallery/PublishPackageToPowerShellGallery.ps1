@@ -3,6 +3,7 @@
 param(
     [parameter(Mandatory = $true)] [string] $apiKey,
     [parameter(Mandatory = $true)] [string] $path,
+    [parameter(Mandatory = $true)] [string] $setVersionNumberInManifest,
     [parameter(Mandatory = $false)] [string] $psd1FileName,
     [parameter(Mandatory = $false)] [string] $version
 )
@@ -30,10 +31,9 @@ Function Edit-ModuleVersionNumber {
         Throw "NoModuleVersionNumber"
     }
     $RequiredModulesTrouble = Select-String -Pattern 'ModuleVersion(.*)' -Path $psd1File | Select-Object -First 1
-    if ($RequiredModulesTrouble.line.Count -gt 1)
-    {
-            Write-Error "$psd1Name has more than one module version or has issues with RequiredModules"!
-            Throw "RequiredModulesTrouble"
+    if ($RequiredModulesTrouble.line.Count -gt 1) {
+        Write-Error "$psd1Name has more than one module version or has issues with RequiredModules"!
+        Throw "RequiredModulesTrouble"
     }
     if (($ModuleVersionNumber -match "^(\d+\.)?(\d+\.)?(\*|\d+)$") -eq $false) {
         if (($ModuleVersionNumber -match "^(\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+)$") -eq $false) {
@@ -89,21 +89,13 @@ Function Publish-PackageToPowerShellGallery {
     Write-Verbose "Create NuGet package provider" -Verbose
     Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
     Write-Verbose "Publishing module" -Verbose
-    if ($PSBoundParameters.ContainsKey('version') -eq $true) {
-        $psd1File = Join-Path $path $psd1FileName
-    }
     Publish-Module -Path $path -NuGetApiKey $apiKey -Force
 }
-if (($PSBoundParameters.ContainsKey('psd1FileName') -eq $false) -and ($PSBoundParameters.ContainsKey('version') -eq $false)) {
+
+if ($setVersionNumberInManifest -eq $false) {
     Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
 }
 else {
-    if (($PSBoundParameters.ContainsKey('psd1FileName') -eq $false) -or ($PSBoundParameters.ContainsKey('version') -eq $false)) {
-        Write-Error "You must specify both file and version number! Value of PowerShell psd1 FileName is $($PSBoundParameters.ContainsKey('psd1FileName')) and value of version number is $($PSBoundParameters.ContainsKey('version'))"
-        Throw
-    }
-    else {
-        Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName
-        Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
-    }
+    Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName
+    Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
 }

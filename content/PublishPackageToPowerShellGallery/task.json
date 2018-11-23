@@ -35,8 +35,16 @@
             "required": true
         },
         {
+            "name": "setVersionNumberInManifest",
+            "type": "boolean",
+            "label": "Update version in psd1 file?",
+            "required": true,
+            "defaultValue": false,
+            "helpMarkDown": "Select to update the module manifest version before publishing to PowerShell Gallery. BOth psd1 FIle Path and New ModuleVersion must be filled in for this to work."
+        },
+        {
             "name": "psd1FileName",
-            "type": "string",
+            "type": "filePath",
             "label": "psd1 File Path",
             "defaultValue": "",
             "helpMarkDown": "Path and filename of the psd1 file that needs the version number updating.",
