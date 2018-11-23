@@ -94,7 +94,7 @@ Function Publish-PackageToPowerShellGallery {
     }
     Publish-Module -Path $path -NuGetApiKey $apiKey -Force
 }
-if (($PSBoundParameters.ContainsKey('psd1FileName') -eq $false) -and ($GenerateDeploymentScript -eq $false)) {
+if (($PSBoundParameters.ContainsKey('psd1FileName') -eq $false) -and ($PSBoundParameters.ContainsKey('version') -eq $false)) {
     Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
 }
 else {
@@ -103,6 +103,7 @@ else {
         Throw
     }
     else {
+        Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName
         Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
     }
 }
