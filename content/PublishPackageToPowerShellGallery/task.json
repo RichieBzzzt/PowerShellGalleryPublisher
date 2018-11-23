@@ -48,7 +48,7 @@
             "label": "New ModuleVersion Number",
             "defaultValue": "",
             "helpMarkDown": "Update the ModuleVersion Number element to this value in the psd1 file.",
-            "required": true
+            "required": false
         }        
     ],
     "execution": {
