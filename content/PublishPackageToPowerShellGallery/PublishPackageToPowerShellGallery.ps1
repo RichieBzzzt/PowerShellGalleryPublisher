@@ -17,36 +17,30 @@ Function Publish-PackageToPowerShellGallery {
     $path = Resolve-Path $path
     Write-Host $path
     $nugetPath = "c:\nuget"
-    Write-Verbose $nugetPath -Verbose
     if (!(Test-Path -Path $nugetPath)) {
-        Write-Verbose "$nugetPath does not exist on this system. Creating directory." -Verbose
+        Write-Verbose "Creating directory $nugetPath" -Verbose
         New-Item -Path $nugetPath -ItemType Directory
     }
     Write-Verbose "Working Folder : $nugetPath"
     $NugetExe = "$nugetPath\nuget.exe"
     if (-not (Test-Path $NugetExe)) {
-        Write-Verbose "Cannot find nuget at path $NugetExe" -Verbose
+        Write-Verbose "Cannot find nuget at $NugetExe" -Verbose
         $NuGetInstallUri = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
         $sourceNugetExe = $NuGetInstallUri
         Write-Verbose "$sourceNugetExe -OutFile $NugetExe" -Verbose
         Invoke-WebRequest $sourceNugetExe -OutFile $NugetExe
         if (-not (Test-Path $NugetExe)) { 
-            Throw "It appears that the nuget download hasn't worked."
+            Throw "Nuget download hasn't worked."
         }
-        Else {
-            Write-Verbose "Nuget Downloaded!" -Verbose
-        }
+        Else {Write-Verbose "Nuget Downloaded!" -Verbose}
     }
     Write-Verbose "Add $nugetPath as %PATH%"
     $pathenv = [System.Environment]::GetEnvironmentVariable("path")
     $pathenv = $pathenv + ";" + $nugetPath
     [System.Environment]::SetEnvironmentVariable("path", $pathenv)
-
     Write-Verbose "Create NuGet package provider" -Verbose
     Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
-
     Write-Verbose "Publishing module" -Verbose
-    
     if ($PSBoundParameters.ContainsKey('version') -eq $true) {
         $psd1File = Join-Path $path $psd1FileName
     }
