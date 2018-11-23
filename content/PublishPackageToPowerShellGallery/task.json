@@ -44,7 +44,7 @@
         },
         {
             "name": "psd1FileName",
-            "type": "string",
+            "type": "filePath",
             "label": "psd1 File Path",
             "defaultValue": "",
             "helpMarkDown": "Path and filename of the psd1 file that needs the version number updating.",
