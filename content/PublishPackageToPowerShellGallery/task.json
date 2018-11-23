@@ -43,7 +43,7 @@
             "required": false
         },
         {
-            "name": "buildNumber",
+            "name": "version",
             "type": "string",
             "label": "New ModuleVersion Number",
             "defaultValue": "",
