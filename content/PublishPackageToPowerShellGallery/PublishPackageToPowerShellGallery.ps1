@@ -6,7 +6,6 @@ param(
     [parameter(Mandatory = $false)] [string] $psd1FileName,
     [parameter(Mandatory = $false)] [string] $version
 )
-
 Function Publish-PackageToPowerShellGallery {
     [cmdletbinding()]
     param(
@@ -17,15 +16,12 @@ Function Publish-PackageToPowerShellGallery {
     )
     $path = Resolve-Path $path
     Write-Host $path
-
     $nugetPath = "c:\nuget"
     Write-Verbose $nugetPath -Verbose
-
     if (!(Test-Path -Path $nugetPath)) {
         Write-Verbose "$nugetPath does not exist on this system. Creating directory." -Verbose
         New-Item -Path $nugetPath -ItemType Directory
-    }`
-
+    }
     Write-Verbose "Working Folder : $nugetPath"
     $NugetExe = "$nugetPath\nuget.exe"
     if (-not (Test-Path $NugetExe)) {
@@ -41,7 +37,6 @@ Function Publish-PackageToPowerShellGallery {
             Write-Verbose "Nuget Downloaded!" -Verbose
         }
     }
-
     Write-Verbose "Add $nugetPath as %PATH%"
     $pathenv = [System.Environment]::GetEnvironmentVariable("path")
     $pathenv = $pathenv + ";" + $nugetPath

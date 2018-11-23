@@ -46,7 +46,7 @@
                 "path": "PublishPackageToPowerShellGallery/task.json", "addressable": true
             },
             {
-                "path": "images/rotomdex.png", "addressable": true
+                "path": "images/icon.png", "addressable": true
             },
             {
                 "path": "vss-extension.json", "addressable": true
