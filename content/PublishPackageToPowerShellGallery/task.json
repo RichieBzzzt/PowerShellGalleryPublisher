@@ -33,6 +33,22 @@
             "defaultValue": "",
             "helpMarkDown": "PowerShell module folder. Folder name should match with psm1 and psd1 files.",
             "required": true
+        },
+        {
+            "name": "psd1FileName",
+            "type": "string",
+            "label": "psd1 File Name",
+            "defaultValue": "",
+            "helpMarkDown": "Name of the psd1 file that needs the version number updating.",
+            "required": false
+        },
+        {
+            "name": "buildNumber",
+            "type": "string",
+            "label": "New ModuleVersion Number",
+            "defaultValue": "",
+            "helpMarkDown": "Update the ModuleVersion Number element to this value in the psd1 file.",
+            "required": true
         }        
     ],
     "execution": {
@@ -43,3 +59,4 @@
         }
     }
 }
+

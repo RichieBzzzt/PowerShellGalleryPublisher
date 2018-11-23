@@ -13,9 +13,7 @@ Function Publish-PackageToPowerShellGallery {
         [ValidateNotNullOrEmpty()]
         $apiKey,
         [ValidateNotNullOrEmpty()]
-        $path,
-        $psd1FileName,
-        $version
+        $path
     )
     $path = Resolve-Path $path
     Write-Host $path
@@ -56,17 +54,19 @@ Function Publish-PackageToPowerShellGallery {
     
     if ($PSBoundParameters.ContainsKey('version') -eq $true) {
         $psd1File = Join-Path $path $psd1FileName
-        .\PublishPackageToPowerShellGallery\AlterModuleVersion.ps1 -buildNumber $version -file $psd1File
     }
     Publish-Module -Path $path -NuGetApiKey $apiKey -Force
 }
-if ($PSBoundParameters.ContainsKey('version') -eq $false) {
+if (($PSBoundParameters.ContainsKey('psd1FileName') -eq $false) -and ($GenerateDeploymentScript -eq $false)) {
     Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
 }
 else {
-    if ($PSBoundParameters.ContainsKey('psd1FileName') -eq $false) {
-        Write-Error "psd1FileName not included!"
+    if (($PSBoundParameters.ContainsKey('psd1FileName') -eq $false) -or ($PSBoundParameters.ContainsKey('version') -eq $false)) {
+        Write-Error "You must specify both file and version number! Value of PowerShell psd1 FileName is $($PSBoundParameters.ContainsKey('psd1FileName')) and value of version number is $($PSBoundParameters.ContainsKey('version'))"
         Throw
     }
-    Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path -version $version -psd1FileName $psd1FileName
+    else {
+        .\PublishPackageToPowerShellGallery\AlterModuleVersion.ps1 -buildNumber $version -file $psd1File
+        Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
+    }
 }
