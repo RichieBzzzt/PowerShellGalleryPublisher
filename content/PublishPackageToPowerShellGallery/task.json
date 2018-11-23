@@ -41,10 +41,7 @@
             "required": true,
             "defaultValue": false,
             "helpMarkDown": "Select to update the module manifest version before publishing to PowerShell Gallery. BOth psd1 FIle Path and New ModuleVersion must be filled in for this to work.",
-            "options": {
-              "VsTeam": "Visual Studio Marketplace",
-              "TFS": "Team Foundation Server"
-      }
+        },
         {
             "name": "psd1FileName",
             "type": "string",
