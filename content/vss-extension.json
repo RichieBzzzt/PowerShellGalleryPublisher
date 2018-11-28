@@ -52,7 +52,7 @@
                 "path": "vss-extension.json", "addressable": true
             },
             {
-                "path": "vss-extension.json", "addressable": true
+                "path": "images/sample.png", "addressable": true
             }
         ]
 }
