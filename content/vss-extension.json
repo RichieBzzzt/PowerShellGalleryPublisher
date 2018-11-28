@@ -50,6 +50,9 @@
             },
             {
                 "path": "vss-extension.json", "addressable": true
+            },
+            {
+                "path": "images/sample.png", "addressable": true
             }
         ]
 }
