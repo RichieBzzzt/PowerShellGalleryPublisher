@@ -92,6 +92,10 @@ Function Publish-PackageToPowerShellGallery {
     Publish-Module -Path $path -NuGetApiKey $apiKey -Force
 }
 
+if (($psd1FileName -eq $true) -or ($version -eq $true)){
+    Write-Warning "Update version in psd1 file not ticked, but values are set in psd1 file path or New ModuleVersion Number. Are you sure you don't want to update the module version number?"
+}
+
 if ($setVersionNumberInManifest -eq $false) {
     Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
 }
