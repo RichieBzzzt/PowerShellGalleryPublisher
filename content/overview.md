@@ -23,4 +23,4 @@ If you haven't already, go to PowerSHell Gallery and create an account.
 
 Sample of what the task look like - 
 
-![sample](\sample.png)
+![sample](sample.png)
