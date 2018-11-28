@@ -40,7 +40,7 @@
             "label": "Update version in psd1 file?",
             "required": true,
             "defaultValue": false,
-            "helpMarkDown": "Select to update the module manifest version before publishing to PowerShell Gallery. BOth psd1 FIle Path and New ModuleVersion must be filled in for this to work."
+            "helpMarkDown": "Select to update the module manifest version before publishing to PowerShell Gallery. Both psd1 FIle Path and New ModuleVersion must be filled in for this to work."
         },
         {
             "name": "psd1FileName",

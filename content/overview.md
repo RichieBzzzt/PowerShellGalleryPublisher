@@ -1,18 +1,25 @@
-# The easiest way to publish your PowerShell module!
-PowerShell Gallery is a central repository for all modules so you should publish yours too!
 
-# Setup and get key
-To publish your PowerShell module, create an account in PowerShell Gallery and obtain API Key.
-1. Go to [PowerShell Gallery](https://www.powershellgallery.com/) and click 'Register'
-2. Register by either using work account or personal account.
-3. Once registered, signin and go to your account by simply click your account name.
-4. Under [Credentials] area, you shall see API Key. 
+# Version and Publish Your PowerShell Modules to PowerShellGallery In One Step!
 
-# How to use the task
-1. In Build or Release definition, click Add Task.
-2. From Package area, click 'Add' for 'PowerShell Gallery Publisher'
-3. Enter your API Key, and select folder where your PowerShell module lives. The folder name must match with .psd1 and .psm1 files.
+If you write a PowerShell Module chances are you'll want to publish it to PowerShell Gallery. PowerShell Gallery Publisher not only enables you to do this in a pipeline, it also versions the PowerShell Module before uploading. handy!
 
-# Confirm the result
-Once your Build or Relese completed, go back to [PowerShell Gallery](https://www.powershellgallery.com/) and check your account. You should see the module under your items.
-Or, simply open PowerShell and run Find-Module [Your module name]
+## Steps To Create a PowerShell Gallery Account and Get an API Key 
+
+If you haven't already, go to PowerSHell Gallery and create an account.
+1. Go to [PowerShell Gallery](https://www.powershellgallery.com/) and click 'Sign In'
+2. Sign In with a Microsoft Account
+3. Once you are signed in, create an [API Key](https://docs.microsoft.com/en-us/powershell/gallery/how-to/managing-profile/creating-APIkeys)
+
+## Using the Task In Your Pipeline
+
+1. In your build/release pipeline click "Add Task" symbol
+2. Select Azure DevOps PowerShell Gallery Packager
+3. in "API Key" enter the API Key you created earlier (you may want to store it in a variable and mask it though!)
+4. Enter the path to the Module you want to publish in "Module Folder"
+5. If you wish to update the version number prior to publishing, select "Update version in psd File?"
+6. Enter the path to the psd1 file that contains the version number
+7. Set the new number in New ModuleVersion Number
+
+Sample of what the task look like - 
+
+![sample](..\sample.png)
