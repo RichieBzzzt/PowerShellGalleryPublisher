@@ -1,5 +1,6 @@
 # PowerShellGalleryPublisher
-# Version and Publish Your PowerShell Modules to PowerShellGallery In One Step!
+
+Version and Publish Your PowerShell Modules to PowerShellGallery In One Step!
 
 If you write a PowerShell Module chances are you'll want to publish it to PowerShell Gallery. PowerShell Gallery Publisher not only enables you to do this in a pipeline, it also versions the PowerShell Module before uploading. handy!
 
