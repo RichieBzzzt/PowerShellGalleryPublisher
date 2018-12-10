@@ -2,6 +2,8 @@
 
 Version and Publish Your PowerShell Modules to PowerShellGallery In One Step!
 
+[![Build status](https://bzzztio.visualstudio.com/Extensions/_apis/build/status/PoshGalPackage-CI)](https://bzzztio.visualstudio.com/Extensions/_build/latest?definitionId=33)
+
 If you write a PowerShell Module chances are you'll want to publish it to PowerShell Gallery. PowerShell Gallery Publisher not only enables you to do this in a pipeline, it also versions the PowerShell Module before uploading. handy!
 
 ## Steps To Create a PowerShell Gallery Account and Get an API Key 
