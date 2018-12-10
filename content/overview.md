@@ -21,6 +21,8 @@ If you haven't already, go to PowerSHell Gallery and create an account.
 6. Enter the path to the psd1 file that contains the version number
 7. Set the new number in New ModuleVersion Number
 
+The code is available on [GitHub](https://github.com/RichieBzzzt/PowerShellGalleryPublisher)
+
 Sample of what the task look like - 
 
 ![sample](sample.png)

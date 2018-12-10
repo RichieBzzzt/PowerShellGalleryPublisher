@@ -1,3 +1,7 @@
-.\PublishPackageToPowerShellGallery\PublishPackageToPowerShellGallery.ps1 -apiKey "" -path ..\seasalt #-version "0.0.0.3" -psd1FileName "seasalt.psd1"
+.\content\PublishPackageToPowerShellGallery\PublishPackageToPowerShellGallery.ps1 -apiKey "asdf" -setVersionNumberInManifest $false -path $PSScriptRoot\seasalt -whatifpublish
 
-#.\PublishPackageToPowerShellGallery\PublishPackageToPowerShellGallery.ps1 -apiKey "" -path ..\seasalt -version "0.0.0.3" -psd1FileName "seasalt.psd1"
+
+.\content\PublishPackageToPowerShellGallery\PublishPackageToPowerShellGallery.ps1 -apiKey "asdf" -setVersionNumberInManifest $true -path .\seasalt -whatifedit -version "0.0.0.5" -psd1FileName .\seasalt\seasalt.psd1
+
+
+.\content\PublishPackageToPowerShellGallery\PublishPackageToPowerShellGallery.ps1 -apiKey "asdf" -setVersionNumberInManifest $true -path .\seasalt -whatifpublish
