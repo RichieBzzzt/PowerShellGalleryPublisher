@@ -32,15 +32,15 @@ The task works on
 * Hosted 2019
 * Hosted 2017
 * Windows Containers
+* Linux Ubuntu 1604
+* mac OS High Sierra
 
 The task does not work on
 
-* Linux Ubuntu 1604
 * mac OS
-* mac OS Sierra
 * Hosted
 
-Getting it to work on Linux is a WIP. Then mac OS/Sierra. I have no plans to work on Hosted Agent.
+I have no plans to work on Hosted Agent as they are quite old.
 
 Sample of what the task look like -
 
