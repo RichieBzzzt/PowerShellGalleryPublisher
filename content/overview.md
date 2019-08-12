@@ -25,6 +25,23 @@ If you haven't already, go to PowerSHell Gallery and create an account.
 
 The code is available on [GitHub](https://github.com/RichieBzzzt/PowerShellGalleryPublisher)
 
-Sample of what the task look like - 
+## What Hosted Agents Do These Work On
+
+The task works on
+
+* Hosted 2019
+* Hosted 2017
+* Windows Containers
+
+The task does not work on
+
+* Linux Ubuntu 1604
+* mac OS
+* mac OS Sierra
+* Hosted
+
+Getting it to work on Linux is a WIP. Then mac OS/Sierra. I have no plans to work on Hosted Agent.
+
+Sample of what the task look like -
 
 ![sample](sample.png)
