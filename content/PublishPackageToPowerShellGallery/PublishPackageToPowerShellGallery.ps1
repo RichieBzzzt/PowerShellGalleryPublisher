@@ -1,5 +1,3 @@
-
-
 param(
     [parameter(Mandatory = $true)] [string] $apiKey,
     [parameter(Mandatory = $true)] [string] $path,
@@ -18,7 +16,9 @@ Function Edit-ModuleVersionNumber {
         $psd1File, 
         [switch] $whatif
     )
-    $psd1File = Resolve-Path $psd1File
+
+    $psd1File = [IO.Path]::GetFullPath($psd1File)
+    #$psd1File = Resolve-Path $psd1File
     $ModuleVersionNumber = $ModuleVersionNumber.Trim()
     if ((Test-Path $psd1File) -eq $false) {
         Write-Error "$psd1File does not exist!"
@@ -70,9 +70,9 @@ Function Publish-PackageToPowerShellGallery {
         $path, 
         [switch] $whatif
     )
-    
     if ($PSBoundParameters.ContainsKey('whatif') -eq $false) {
-        $path = Resolve-Path $path
+        $path = Resolve-Path [IO.Path]::GetFullPath($path)
+        #$path = Resolve-Path $path
         $nugetPath = "c:\nuget"
         if (!(Test-Path -Path $nugetPath)) {
             Write-Verbose "Creating directory $nugetPath" -Verbose
@@ -90,14 +90,14 @@ Function Publish-PackageToPowerShellGallery {
             if (-not (Test-Path $NugetExe)) { 
                 Throw "Nuget download hasn't worked."
             }
-            Else {Write-Verbose "Nuget Downloaded!" -Verbose}
+            Else { Write-Verbose "Nuget Downloaded!" -Verbose }
         }
         Write-Verbose "Add $nugetPath as %PATH%"
         $pathenv = [System.Environment]::GetEnvironmentVariable("path")
         $pathenv = $pathenv + ";" + $nugetPath
         [System.Environment]::SetEnvironmentVariable("path", $pathenv)
         Write-Verbose "Create NuGet package provider" -Verbose
-        Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
+        Install-PackageProvider -Name NuGet -Scope CurrentUser -Force -ForceBootstrap
         Write-Verbose "Publishing module" -Verbose
         Publish-Module -Path $path -NuGetApiKey $apiKey -Force
     }
@@ -112,10 +112,8 @@ if ($PSBoundParameters.ContainsKey('whatifpublish') -eq $true) {
 if ($PSBoundParameters.ContainsKey('whatifedit') -eq $true) {
     Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName -whatif
 }
-
 #if both test switches are false, engage!
-if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifpublish') -eq $false))
-{
+if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifpublish') -eq $false)) {
     if ($setVersionNumberInManifest -eq $false) {
         Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path    
     }

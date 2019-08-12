@@ -2,7 +2,9 @@
 
 # Version and Publish Your PowerShell Modules to PowerShellGallery In One Step!
 
-If you write a PowerShell Module chances are you'll want to publish it to PowerShell Gallery. PowerShell Gallery Publisher not only enables you to do this in a pipeline, it also versions the PowerShell Module before uploading. handy!
+If you write a PowerShell Module chances are you'll want to publish it to PowerShell Gallery. PowerShell Gallery Publisher not only enables you to do this in a pipeline, it also versions the PowerShell Module before uploading. Handy!
+
+[![Build status](https://bzzztio.visualstudio.com/Extensions/_apis/build/status/PoshGalPackage-CI)](https://bzzztio.visualstudio.com/Extensions/_build/latest?definitionId=33)
 
 ## Steps To Create a PowerShell Gallery Account and Get an API Key 
 
@@ -23,6 +25,23 @@ If you haven't already, go to PowerSHell Gallery and create an account.
 
 The code is available on [GitHub](https://github.com/RichieBzzzt/PowerShellGalleryPublisher)
 
-Sample of what the task look like - 
+## What Hosted Agents Do These Work On
+
+The task works on
+
+* Hosted 2019
+* Hosted 2017
+* Windows Containers
+
+The task does not work on
+
+* Linux Ubuntu 1604
+* mac OS
+* mac OS Sierra
+* Hosted
+
+Getting it to work on Linux is a WIP. Then mac OS/Sierra. I have no plans to work on Hosted Agent.
+
+Sample of what the task look like -
 
 ![sample](sample.png)
