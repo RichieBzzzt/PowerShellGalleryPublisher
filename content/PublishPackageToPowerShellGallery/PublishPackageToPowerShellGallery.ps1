@@ -96,10 +96,10 @@ Function Publish-PackageToPowerShellGallery {
         $pathenv = [System.Environment]::GetEnvironmentVariable("path")
         $pathenv = $pathenv + ";" + $nugetPath
         [System.Environment]::SetEnvironmentVariable("path", $pathenv)
-        Write-Verbose "Create NuGet package provider" -Verbose
-        if (!(Get-PackageProvider NuGet)) { 
-            Install-PackageProvider -Name NuGet -Scope CurrentUser -Force -ForceBootstrap
-        }
+        # Write-Verbose "Create NuGet package provider" -Verbose
+        # if (!(Get-PackageProvider NuGet)) { 
+        #     Install-PackageProvider -Name NuGet -Scope CurrentUser -Force -ForceBootstrap
+        # }
         Write-Verbose "Publishing module" -Verbose
         Publish-Module -Path $path -NuGetApiKey $apiKey -Force
     }
