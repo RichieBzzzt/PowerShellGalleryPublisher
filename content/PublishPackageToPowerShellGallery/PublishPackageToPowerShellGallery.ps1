@@ -16,7 +16,9 @@ Function Edit-ModuleVersionNumber {
         $psd1File, 
         [switch] $whatif
     )
-    $psd1File = Resolve-Path $psd1File
+
+    $psd1File = [IO.Path]::GetFullPath($psd1File)
+    #$psd1File = Resolve-Path $psd1File
     $ModuleVersionNumber = $ModuleVersionNumber.Trim()
     if ((Test-Path $psd1File) -eq $false) {
         Write-Error "$psd1File does not exist!"
@@ -69,7 +71,8 @@ Function Publish-PackageToPowerShellGallery {
         [switch] $whatif
     )
     if ($PSBoundParameters.ContainsKey('whatif') -eq $false) {
-        $path = Resolve-Path $path
+        $path = Resolve-Path [IO.Path]::GetFullPath($path)
+        #$path = Resolve-Path $path
         $nugetPath = "c:\nuget"
         if (!(Test-Path -Path $nugetPath)) {
             Write-Verbose "Creating directory $nugetPath" -Verbose
