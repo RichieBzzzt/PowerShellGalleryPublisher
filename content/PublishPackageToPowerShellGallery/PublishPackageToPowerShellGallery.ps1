@@ -104,7 +104,7 @@ Function Publish-PackageToPowerShellGallery {
         Publish-Module -Path $path -NuGetApiKey $apiKey -Force
     }
     else {
-        Publish-Module -Path $path -NuGetApiKey $apiKey -WhatIf
+        Publish-Module -Path $path -NuGetApiKey $apiKey -WhatIf -Force
     }
 }
 #tests
