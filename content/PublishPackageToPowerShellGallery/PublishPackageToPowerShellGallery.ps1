@@ -90,14 +90,16 @@ Function Publish-PackageToPowerShellGallery {
             if (-not (Test-Path $NugetExe)) { 
                 Throw "Nuget download hasn't worked."
             }
-            Else {Write-Verbose "Nuget Downloaded!" -Verbose}
+            Else { Write-Verbose "Nuget Downloaded!" -Verbose }
         }
         Write-Verbose "Add $nugetPath as %PATH%"
         $pathenv = [System.Environment]::GetEnvironmentVariable("path")
         $pathenv = $pathenv + ";" + $nugetPath
         [System.Environment]::SetEnvironmentVariable("path", $pathenv)
         Write-Verbose "Create NuGet package provider" -Verbose
-        Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
+        if (!(Get-PackageProvider NuGet)) { 
+            Install-PackageProvider -Name NuGet -Scope CurrentUser -Force -ForceBootstrap
+        }
         Write-Verbose "Publishing module" -Verbose
         Publish-Module -Path $path -NuGetApiKey $apiKey -Force
     }
@@ -114,8 +116,7 @@ if ($PSBoundParameters.ContainsKey('whatifedit') -eq $true) {
 }
 
 #if both test switches are false, engage!
-if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifpublish') -eq $false))
-{
+if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifpublish') -eq $false)) {
     if ($setVersionNumberInManifest -eq $false) {
         Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path    
     }
