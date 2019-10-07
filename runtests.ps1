@@ -23,7 +23,7 @@ catch {
         Install-PackageProvider -Name NuGet -Force -Scope CurrentUser
     }
     if ($linux) {
-        Find-Module pester -Repository psgallery | Install-Module -Scope CurrentUser
+        Find-Module pester -Repository psgallery | Install-Module -MinimumVersion 4.3.1 -Force -SkipPublisherCheck -Scope CurrentUser
     }
 }
 try {
