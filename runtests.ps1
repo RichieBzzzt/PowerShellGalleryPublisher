@@ -19,7 +19,12 @@ try {
 }
 catch {
     write-host "Pester Module not found. Trying to install..."
-    Install-PackageProvider -Name NuGet -Force -Scope CurrentUser
+    if ($windows) {
+        Install-PackageProvider -Name NuGet -Force -Scope CurrentUser
+    }
+    if ($linux) {
+        Find-Module pester -Repository psgallery | Install-Module -Scope CurrentUser
+    }
 }
 try {
     Install-Module Pester -MinimumVersion 4.3.1 -Force -SkipPublisherCheck -Scope CurrentUser
@@ -31,11 +36,11 @@ $ErrorActionPreference = "Stop"
 $outputFolder = Join-Path $PSScriptRoot testresults
 $outFileName = (get-date -f yyyy-MM-dd-hh-mm-ss) + '.testrun.xml'
 $outputFile = Join-Path $OutputFolder $outFileName
-if($linux){
+if ($linux) {
     Write-Host "Running Linux Tests..."
     Invoke-Pester . \PublishPackageToPowerShellGallery.Linux.tests.ps1 -PassThru -outputFile $outputFile -OutputFormat NUnitXml -EnableExit
 }
-if($windows){
+if ($windows) {
     Write-Host "Running Windows Tests..."
     Invoke-Pester .\PublishPackageToPowerShellGallery.Windows.tests.ps1 -PassThru -outputFile $outputFile -OutputFormat NUnitXml -EnableExit  
 }
