@@ -5,7 +5,8 @@ param(
     [parameter(Mandatory = $false)] [string] $psd1FileName,
     [parameter(Mandatory = $false)] [string] $version,
     [parameter(Mandatory = $false)] [switch] $whatifpublish,
-    [parameter(Mandatory = $false)] [switch] $whatifedit
+    [parameter(Mandatory = $false)] [switch] $whatifedit,
+    [parameter(Mandatory = $false)] [switch] $whatifboth
 )
 Function Edit-ModuleVersionNumber {
     [cmdletbinding()]
@@ -112,8 +113,14 @@ if ($PSBoundParameters.ContainsKey('whatifpublish') -eq $true) {
 if ($PSBoundParameters.ContainsKey('whatifedit') -eq $true) {
     Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName -whatif
 }
+if ($PSBoundParameters.ContainsKey('whatifboth') -eq $true) {
+    Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName
+    Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path -whatif 
+    Edit-ModuleVersionNumber -ModuleVersionNumber '0.0.0.4' -psd1File $psd1FileName
+}
+
 #if both test switches are false, engage!
-if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifpublish') -eq $false)) {
+if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifpublish') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifboth') -eq $false) ) {
     if ($setVersionNumberInManifest -eq $false) {
         Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path    
     }
