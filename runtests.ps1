@@ -1,8 +1,14 @@
 param(
     [switch] $linux,
     [switch] $windows,
-    [string] $psd1Path
+    [string] $psd1FilePath
 )
+
+if ([string]::IsNullOrEmpty($psd1FilePath)) {
+    $psd1FilePath = $PSScriptRoot
+}
+
+Write-Host $psd1FilePath\PublishPackageToPowerShellGallery.Linux.tests.ps1
 
 try {
 
@@ -38,7 +44,7 @@ $outFileName = (get-date -f yyyy-MM-dd-hh-mm-ss) + '.testrun.xml'
 $outputFile = Join-Path $OutputFolder $outFileName
 if ($linux) {
     Write-Host "Running Linux Tests..."
-    Invoke-Pester . \PublishPackageToPowerShellGallery.Linux.tests.ps1 -PassThru -outputFile $outputFile -OutputFormat NUnitXml -EnableExit
+    Invoke-Pester -Script @{Path = "$psd1FilePath\PublishPackageToPowerShellGallery.Linux.tests.ps1"; Parameters = @{psd1Path = $psd1FilePath }} 
 }
 if ($windows) {
     Write-Host "Running Windows Tests..."

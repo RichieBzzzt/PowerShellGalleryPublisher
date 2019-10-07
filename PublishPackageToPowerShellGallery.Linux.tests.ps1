@@ -1,10 +1,11 @@
 param(
-    [Switch] $publish,
-    [string] $apiKey,
-    [string] $version,
-    [string] $psd1Path = $PSScriptRoot
+    # [Switch] $publish,
+    # [string] $apiKey,
+    # [string] $version,
+    [string] $psd1Path
 )
 
+Write-Host "bob $psd1path"
 it "Version number same as in manifest" {
     {.\content\PublishPackageToPowerShellGallery\PublishPackageToPowerShellGallery.ps1 -apiKey "asdf" -setVersionNumberInManifest $false -path $PSScriptRoot\seasalt -whatifpublish} | Should -Not -Throw
 }
