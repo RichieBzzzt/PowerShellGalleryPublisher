@@ -39,7 +39,7 @@ The task works on
 The task does not work on
 
 * mac OS
-* Hosted
+* Hosted (VS 2015)
 
 I have no plans to work on Hosted Agent as they are quite old.
 
