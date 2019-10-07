@@ -33,6 +33,7 @@ The task works on
 * Hosted 2017
 * Windows Containers
 * Linux Ubuntu 1604
+* Linux Ubuntu 1804
 * mac OS High Sierra
 
 The task does not work on
@@ -41,6 +42,8 @@ The task does not work on
 * Hosted
 
 I have no plans to work on Hosted Agent as they are quite old.
+
+The build and release pipeline are publicly available to view [here](https://bzzztio.visualstudio.com/Extensions/_build?definitionId=33)
 
 Sample of what the task look like -
 
