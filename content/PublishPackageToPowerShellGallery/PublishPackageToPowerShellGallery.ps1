@@ -71,8 +71,6 @@ Function Publish-PackageToPowerShellGallery {
         $path, 
         [switch] $whatif
     )
-    Write-Host "entered"
-    Write-Host $path
     if ($PSBoundParameters.ContainsKey('whatif') -eq $false) {
         $path = [IO.Path]::GetFullPath($path)
         $nugetPath = "c:\nuget"
@@ -109,30 +107,23 @@ Function Publish-PackageToPowerShellGallery {
 }
 #tests
 if ($PSBoundParameters.ContainsKey('whatifpublish') -eq $true) {
-    Write-Host " one"
     Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path -whatif   
 }
 if ($PSBoundParameters.ContainsKey('whatifedit') -eq $true) {
-    Write-Host " two"
     Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName -whatif
 }
 if ($PSBoundParameters.ContainsKey('whatifboth') -eq $true) {
-    Write-Host " three"
     Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName
     Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path -whatif 
     Edit-ModuleVersionNumber -ModuleVersionNumber '0.0.0.4' -psd1File $psd1FileName
 }
-Write-Host "have bypassed the tests."
 #if both test switches are false, engage!
 if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifpublish') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifboth') -eq $false) ) {
     if ($setVersionNumberInManifest -eq $false) {
-        Write-Host " four"
         Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path    
     }
     else {
         Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName
-        Write-Host "here $path"
-        Write-Host " five"
         Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
     }
 }
