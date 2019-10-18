@@ -73,7 +73,6 @@ Function Publish-PackageToPowerShellGallery {
     )
     if ($PSBoundParameters.ContainsKey('whatif') -eq $false) {
         $path = Resolve-Path [IO.Path]::GetFullPath($path)
-        #$path = Resolve-Path $path
         $nugetPath = "c:\nuget"
         if (!(Test-Path -Path $nugetPath)) {
             Write-Verbose "Creating directory $nugetPath" -Verbose
@@ -126,6 +125,7 @@ if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundPara
     }
     else {
         Edit-ModuleVersionNumber -ModuleVersionNumber $version -psd1File $psd1FileName
+        Write-Host "here $path"
         Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path
     }
 }
