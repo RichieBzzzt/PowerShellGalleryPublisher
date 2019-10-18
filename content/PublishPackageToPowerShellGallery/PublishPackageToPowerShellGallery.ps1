@@ -72,8 +72,7 @@ Function Publish-PackageToPowerShellGallery {
         [switch] $whatif
     )
     if ($PSBoundParameters.ContainsKey('whatif') -eq $false) {
-        $path = Resolve-Path [IO.Path]::GetFullPath($path)
-        #$path = Resolve-Path $path
+        $path = [IO.Path]::GetFullPath($path)
         $nugetPath = "c:\nuget"
         if (!(Test-Path -Path $nugetPath)) {
             Write-Verbose "Creating directory $nugetPath" -Verbose
@@ -118,7 +117,6 @@ if ($PSBoundParameters.ContainsKey('whatifboth') -eq $true) {
     Publish-PackageToPowerShellGallery -apiKey $apiKey -path $path -whatif 
     Edit-ModuleVersionNumber -ModuleVersionNumber '0.0.0.4' -psd1File $psd1FileName
 }
-
 #if both test switches are false, engage!
 if (($PSBoundParameters.ContainsKey('whatifedit') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifpublish') -eq $false) -and ($PSBoundParameters.ContainsKey('whatifboth') -eq $false) ) {
     if ($setVersionNumberInManifest -eq $false) {
