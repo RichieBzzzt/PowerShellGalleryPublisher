@@ -74,7 +74,7 @@ Function Publish-PackageToPowerShellGallery {
     Write-Host "entered"
     Write-Host $path
     if ($PSBoundParameters.ContainsKey('whatif') -eq $false) {
-        $path = Resolve-Path [IO.Path]::GetFullPath($path)
+        $path = [IO.Path]::GetFullPath($path)
         $nugetPath = "c:\nuget"
         if (!(Test-Path -Path $nugetPath)) {
             Write-Verbose "Creating directory $nugetPath" -Verbose
