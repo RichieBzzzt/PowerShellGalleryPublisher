@@ -60,7 +60,7 @@
         }        
     ],
     "execution": {
-        "PowerShell3": {
+        "PowerShell": {
             "target": "$(currentDirectory)\\PublishPackageToPowerShellGallery.ps1",
             "argumentFormat": "",
             "workingDirectory": ""
