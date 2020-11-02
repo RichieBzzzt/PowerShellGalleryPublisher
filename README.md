@@ -1,5 +1,7 @@
 # PowerShellGalleryPublisher
 
+## Archived - moved to a PowerShell Module as Azure DevOps tasks are more hassle than they're worth.
+
 Version and Publish Your PowerShell Modules to PowerShellGallery In One Step!
 
 [![Build status](https://bzzztio.visualstudio.com/Extensions/_apis/build/status/PoshGalPackage-CI)](https://bzzztio.visualstudio.com/Extensions/_build/latest?definitionId=33)
